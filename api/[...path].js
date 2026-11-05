@@ -137,6 +137,10 @@ export default async function handler(request, response) {
   }
 
   try {
+    const route = request.query?.route;
+    if (route) {
+      request.url = `/api/${route}`;
+    }
     await ensureAdminCredential();
     await handleApiRequest(request, response, {
       adminPassword: process.env.ADMIN_PASSWORD,
