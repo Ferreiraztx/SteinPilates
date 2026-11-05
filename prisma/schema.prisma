@@ -1,0 +1,88 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Student {
+  id             String         @id
+  name           String
+  phone          String         @default("")
+  email          String         @default("")
+  status         String
+  phase          String
+  plan           String         @default("A definir")
+  monthlyFee     Int            @default(0)
+  dueDate        Int            @default(1)
+  healthNotes    String         @default("")
+  reposicoesLeft Int            @default(0)
+  joinDate       String
+  classes        ClassStudent[]
+  payments       Payment[]
+  attendance     Attendance[]
+}
+
+model Class {
+  id         String         @id
+  date       String
+  time       String
+  type       String
+  status     String
+  students   ClassStudent[]
+  attendance Attendance[]
+}
+
+model ClassStudent {
+  classId   String
+  studentId String
+  class     Class   @relation(fields: [classId], references: [id], onDelete: Cascade)
+  student   Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@id([classId, studentId])
+}
+
+model Payment {
+  id          String  @id
+  studentId   String
+  studentName String
+  amount      Int
+  dueDate     String
+  paymentDate String?
+  status      String
+  method      String
+  nfStatus    String
+  nfNumber    String  @default("")
+  student     Student @relation(fields: [studentId], references: [id], onDelete: Restrict)
+}
+
+model Attendance {
+  id        String  @id
+  classId   String
+  studentId String
+  status    String
+  date      String
+  class     Class   @relation(fields: [classId], references: [id], onDelete: Cascade)
+  student   Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@unique([classId, studentId])
+}
+
+model StudioSetting {
+  id        String  @id
+  category  String
+  name      String
+  value     String
+  active    Boolean @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([category, name])
+}
+
+model AdminCredential {
+  id           String @id
+  passwordHash String
+}

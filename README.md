@@ -1,16 +1,34 @@
-# React + Vite
+# Stein Pilates
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Painel de gestão de estúdio construído com React, Vite, API Node.js e Prisma ORM.
 
-Currently, two official plugins are available:
+## Executar em desenvolvimento
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+```bash
+npm install
+npx prisma migrate dev
+npm run dev
+```
 
-## React Compiler
+O comando inicia o frontend Vite em `http://localhost:5173` e a API em `http://localhost:3001`.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Antes de executar, copie `.env.example` para `.env` e defina uma senha forte em
+`ADMIN_PASSWORD`. O painel exige login e as rotas `/api/*` protegidas usam sessão,
+cookie CSRF e CORS restrito. Em desenvolvimento, o frontend acessa a API pelo
+proxy `/api`, sem expor uma URL de API diferente no navegador.
 
-## Expanding the ESLint configuration
+## Produção
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```bash
+npm run build
+npm run api
+```
+
+Depois do build, a API também entrega os arquivos estáticos pelo endereço `http://localhost:3001`.
+
+O banco SQLite é criado em `data/stein-pilates.db`. O schema está em [prisma/schema.prisma](./prisma/schema.prisma), e os dados iniciais são carregados pelo seed do Prisma.
+
+As páginas do painel ficam separadas em `src/pages`, os modais reutilizáveis em
+`src/components` e o dispatcher das rotas protegidas da API em
+`server/routes/api.routes.js`. O `server.js` permanece responsável apenas pelo
+bootstrap HTTP, segurança, arquivos estáticos e registro do dispatcher.
