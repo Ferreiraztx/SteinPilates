@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Activity } from "lucide-react";
 function LoginView({ onLogin }) {
   const [credentials, setCredentials] = useState({ username: "", password: "" });
   const [error, setError] = useState("");
@@ -22,9 +21,11 @@ function LoginView({ onLogin }) {
     <div className="min-h-screen bg-[#F3ECE4] flex items-center justify-center p-4">
       <form onSubmit={handleSubmit} className="w-full max-w-sm bg-white rounded-2xl border border-[#E5D8CA] shadow-lg p-6 space-y-5">
         <div className="text-center">
-          <div className="mx-auto w-12 h-12 rounded-xl bg-[#5E7A67] flex items-center justify-center text-white">
-            <Activity className="w-6 h-6" />
-          </div>
+          <img
+            src="/logo.jpg"
+            alt="Stein Pilates"
+            className="mx-auto w-20 h-20 rounded-2xl object-cover shadow-sm"
+          />
           <h1 className="mt-3 text-lg font-bold text-slate-900">Stein Pilates</h1>
           <p className="text-xs text-slate-500 mt-1">Acesse a gestão do estúdio</p>
         </div>

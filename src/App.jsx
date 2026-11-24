@@ -355,9 +355,11 @@ export default function App() {
           <div>
             {/* Logo Brand */}
             <div className="p-6 border-b border-[#E5D8CA] flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-[#5E7A67] flex items-center justify-center text-white shadow-sm">
-                <Activity className="w-6 h-6" />
-              </div>
+              <img
+                src="/logo.jpg"
+                alt="Stein Pilates"
+                className="w-10 h-10 rounded-xl object-cover shadow-sm"
+              />
               <div>
                 <h1 className="font-semibold text-lg text-slate-900 tracking-tight leading-none">
                   Stein Pilates
