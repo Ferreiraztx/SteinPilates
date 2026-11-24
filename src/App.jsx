@@ -5,7 +5,6 @@ import {
   UserPlus, Activity, FileCheck, CalendarDays, Menu, X, Settings,
 } from "lucide-react";
 import {
-  INITIAL_STUDENTS, INITIAL_CLASSES, INITIAL_PAYMENTS, INITIAL_ATTENDANCE,
   TODAY_STR, apiFetch,
 } from "./shared/appData.js";
 import LoginView from "./components/LoginView.jsx";
@@ -32,10 +31,10 @@ export default function App() {
     ? routeTab
     : "dashboard";
   const setActiveTab = (tab) => navigate(`/${tab}`);
-  const [students, setStudents] = useState(INITIAL_STUDENTS);
-  const [classes, setClasses] = useState(INITIAL_CLASSES);
-  const [payments, setPayments] = useState(INITIAL_PAYMENTS);
-  const [attendance, setAttendance] = useState(INITIAL_ATTENDANCE);
+  const [students, setStudents] = useState([]);
+  const [classes, setClasses] = useState([]);
+  const [payments, setPayments] = useState([]);
+  const [attendance, setAttendance] = useState([]);
   const [settings, setSettings] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
